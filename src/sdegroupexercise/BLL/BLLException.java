@@ -19,6 +19,11 @@ public class BLLException extends Exception
         this.message = ex.getMessage();
     }
     
+    public BLLException(String message)
+    {
+        this.message = message;
+    }
+    
     @Override
     public String getMessage()
     {

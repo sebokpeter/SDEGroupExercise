@@ -6,6 +6,8 @@
 package sdegroupexercise.BLL;
 
 import java.sql.SQLException;
+import java.util.List;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import sdegroupexercise.BE.Joke;
@@ -28,7 +30,7 @@ public class BLLManager implements BLLInterface
     {
         try
         {
-            return dalManager.getDataFromDB();
+            return selectRandomJoke(dalManager.getDataFromDB());
         } 
         catch (DALException ex)
         {
@@ -44,17 +46,25 @@ public class BLLManager implements BLLInterface
         
         try
         {
+            if (joke.isEmpty())
+            {
+                throw new BLLException("Joke is empty");
+            }
             dalManager.setDataIntoDB(joke);
         } 
          catch (SQLException ex) {
             Logger.getLogger(BLLManager.class.getName()).log(Level.SEVERE, null, ex);
-        
+
+    }
+       
         
     }
+
+    private String selectRandomJoke(List<String> dataFromDB)
+    {
+        Random random = new Random();
         
-       
-       
-        
+        return dataFromDB.get(random.nextInt(dataFromDB.size()));
     }
     
 

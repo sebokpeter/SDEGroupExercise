@@ -6,6 +6,7 @@
 package sdegroupexercise.DAL;
 
 import java.sql.SQLException;
+import java.util.List;
 import sdegroupexercise.BE.Joke;
 
 /**
@@ -14,7 +15,7 @@ import sdegroupexercise.BE.Joke;
  */
 public interface DataAccesInterface
 {
-    public String getDataFromDB() throws DALException;
+    public List<String> getDataFromDB() throws DALException;
     
-    public Joke setDataIntoDB(String joke) throws SQLException;
+    public void setDataIntoDB(String joke) throws SQLException;
 }

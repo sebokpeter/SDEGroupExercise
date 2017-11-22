@@ -10,6 +10,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import sdegroupexercise.BE.Joke;
 
 /**
@@ -23,32 +25,39 @@ public class DALManager implements DataAccesInterface
     
 
     @Override
-    public String getDataFromDB() throws DALException
+    public List<String> getDataFromDB() throws DALException
     {
+        List<String> jokes = new ArrayList();
         try(Connection con = cm.getConnection();)
         {
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM Jokes");
-            rs.next();
-            return rs.getString("joke");
+            while(rs.next())
+            {
+                jokes.add(rs.getString("joke"));
+            }
         }
         catch (SQLException ex)
         {
             throw new DALException(ex);
         }
+        
+        return jokes;
     }
     
     @Override
-    public Joke setDataIntoDB(String joke) throws SQLException
+    public void setDataIntoDB(String joke) throws SQLException
     {
         try(Connection con = cm.getConnection();)
         {
-            String sql = "INSERT INTO Company VALUES (?);";
-
-            PreparedStatement statement = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            String sql = "INSERT INTO Jokes (joke) VALUES ('" + joke +"');";
             
-            statement.setString(1, joke);
+            //PreparedStatement statement = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             
+            //statement.setString(1, joke);
+            Statement stmnt = con.createStatement();
+            stmnt.executeUpdate(sql);
+            /*
             if(statement.executeUpdate() == 1){
                 ResultSet rs = statement.getGeneratedKeys();
                 rs.next();
@@ -56,8 +65,9 @@ public class DALManager implements DataAccesInterface
                 Joke j = new Joke(id, joke);
                 return j;
             }
+*/
         }
-        throw new RuntimeException("Can't create company");
+        //throw new RuntimeException("Can't create company");
         
     }
     

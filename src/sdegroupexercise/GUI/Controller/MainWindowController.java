@@ -54,8 +54,15 @@ public class MainWindowController implements Initializable
     @FXML
     private void btnClickSaveToDB(ActionEvent event) throws BLLException
     {
-        
-        model.setJoke(txtAreaJoke.getText());
+        try
+        {
+            model.setJoke(txtAreaJoke.getText());
+        }
+        catch (Exception ex)
+        {
+            Alert a = new Alert(Alert.AlertType.ERROR, "An error occured: " + ex.getMessage(), ButtonType.OK);
+            a.show();
+        }
     }
     
 }
