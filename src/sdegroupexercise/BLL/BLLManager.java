@@ -5,7 +5,10 @@
  */
 package sdegroupexercise.BLL;
 
+import java.sql.SQLException;
 import java.util.logging.Level;
+import java.util.logging.Logger;
+import sdegroupexercise.BE.Joke;
 import sdegroupexercise.DAL.DALException;
 import sdegroupexercise.DAL.DALManager;
 import sdegroupexercise.DAL.DataAccesInterface;
@@ -31,6 +34,28 @@ public class BLLManager implements BLLInterface
         {
             throw new BLLException(ex);
         }
+    
+    }
+        
+    
+    @Override
+     public void setDataIntoDAL(String joke) throws BLLException
+    {
+        
+        try
+        {
+            dalManager.setDataIntoDB(joke);
+        } 
+         catch (SQLException ex) {
+            Logger.getLogger(BLLManager.class.getName()).log(Level.SEVERE, null, ex);
+        
+        
+    }
+        
+       
+       
+        
     }
     
+
 }

@@ -6,9 +6,11 @@
 package sdegroupexercise.DAL;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import sdegroupexercise.BE.Joke;
 
 /**
  *
@@ -34,6 +36,29 @@ public class DALManager implements DataAccesInterface
         {
             throw new DALException(ex);
         }
+    }
+    
+    @Override
+    public Joke setDataIntoDB(String joke) throws SQLException
+    {
+        try(Connection con = cm.getConnection();)
+        {
+            String sql = "INSERT INTO Company VALUES (?);";
+
+            PreparedStatement statement = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            
+            statement.setString(1, joke);
+            
+            if(statement.executeUpdate() == 1){
+                ResultSet rs = statement.getGeneratedKeys();
+                rs.next();
+                int id = rs.getInt(1);
+                Joke j = new Joke(id, joke);
+                return j;
+            }
+        }
+        throw new RuntimeException("Can't create company");
+        
     }
     
 }

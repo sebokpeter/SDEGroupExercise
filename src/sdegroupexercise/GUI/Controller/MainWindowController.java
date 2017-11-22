@@ -16,6 +16,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import sdegroupexercise.BLL.BLLException;
 import sdegroupexercise.GUI.Model.Model;
 import sdegroupexercise.GUI.Model.ModelException;
 
@@ -51,8 +52,10 @@ public class MainWindowController implements Initializable
     }
 
     @FXML
-    private void btnClickSaveToDB(ActionEvent event)
+    private void btnClickSaveToDB(ActionEvent event) throws BLLException
     {
+        
+        model.setJoke(txtAreaJoke.getText());
     }
     
 }

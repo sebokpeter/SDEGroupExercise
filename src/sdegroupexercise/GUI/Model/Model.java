@@ -5,6 +5,7 @@
  */
 package sdegroupexercise.GUI.Model;
 
+import sdegroupexercise.BE.Joke;
 import sdegroupexercise.BLL.BLLException;
 import sdegroupexercise.BLL.BLLInterface;
 import sdegroupexercise.BLL.BLLManager;
@@ -28,5 +29,12 @@ public class Model
             throw new ModelException();
         }
     }
+    
+    public void setJoke(String joke) throws BLLException
+    {
+        bllManager.setDataIntoDAL(joke);
+    }
+    
+    
     
 }

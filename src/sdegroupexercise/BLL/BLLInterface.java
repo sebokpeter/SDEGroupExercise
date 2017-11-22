@@ -5,6 +5,8 @@
  */
 package sdegroupexercise.BLL;
 
+import sdegroupexercise.BE.Joke;
+
 /**
  *
  * @author sebok
@@ -12,4 +14,6 @@ package sdegroupexercise.BLL;
 public interface BLLInterface
 {
     public String getDataFromDAL() throws BLLException;
+    
+    public void setDataIntoDAL(String joke) throws BLLException;
 }
