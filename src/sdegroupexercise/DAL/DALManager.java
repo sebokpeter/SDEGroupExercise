@@ -46,29 +46,21 @@ public class DALManager implements DataAccesInterface
     }
     
     @Override
-    public void setDataIntoDB(String joke) throws SQLException
+    public void setDataIntoDB(String joke) throws DALException
     {
         try(Connection con = cm.getConnection();)
         {
-            String sql = "INSERT INTO Jokes (joke) VALUES ('" + joke +"');";
-            
-            //PreparedStatement statement = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            
-            //statement.setString(1, joke);
-            Statement stmnt = con.createStatement();
-            stmnt.executeUpdate(sql);
-            /*
-            if(statement.executeUpdate() == 1){
-                ResultSet rs = statement.getGeneratedKeys();
-                rs.next();
-                int id = rs.getInt(1);
-                Joke j = new Joke(id, joke);
-                return j;
-            }
-*/
+            String sql = "INSERT INTO Jokes (joke) VALUES (?);";
+
+            PreparedStatement pstmnt = con.prepareStatement(sql);
+            pstmnt.setString(1, joke);
+            pstmnt.executeUpdate();
+
         }
-        //throw new RuntimeException("Can't create company");
-        
+        catch(SQLException ex)
+        {
+            throw new DALException(ex);
+        }
     }
-    
-}
+ }
+   

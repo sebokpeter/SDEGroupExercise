@@ -5,12 +5,8 @@
  */
 package sdegroupexercise.BLL;
 
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Random;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import sdegroupexercise.BE.Joke;
 import sdegroupexercise.DAL.DALException;
 import sdegroupexercise.DAL.DALManager;
 import sdegroupexercise.DAL.DataAccesInterface;
@@ -52,10 +48,10 @@ public class BLLManager implements BLLInterface
             }
             dalManager.setDataIntoDB(joke);
         } 
-         catch (SQLException ex) {
-            Logger.getLogger(BLLManager.class.getName()).log(Level.SEVERE, null, ex);
-
-    }
+        catch (DALException ex)
+        {
+            throw new BLLException(ex);
+        }
        
         
     }
